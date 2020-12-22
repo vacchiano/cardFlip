@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma.min.css">
+</head>
+{% load static %}
+<body>
+    <nav class="navbar has-shadow is-white is-spaced" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="{% url 'home' %}">
+            <img src="{% static 'core/img/CardFlip_logo.png' %}" style="max-height: 30px;" class="">
+            <strong class="pl-2 is-size-4">Card Flip</strong>
+            </a>
+        
+            <a role="button" id='burger' class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            </a>
+        </div>
+        
+        <div id='nav-links' class="navbar-menu">
+            <div class="navbar-end">
+            <a class="navbar-item is-size-5">
+                About
+            </a>
+            </div>
+        
+        </div>
+        </nav>
+        {% block content %}
+        {% endblock %}
+        <!-- Footer -->
+        <footer class="footer has-background-light mt-6">
+        <div class="content has-text-centered">
+            <p>
+            <strong>Card Flip</strong> made with 🧡 by<a target="blank" href="https://domvacchiano.com"> Dom Vacchiano</a>.
+            </p>
+        </div>
+        </footer>
+        <script src="{% static 'core/js/main.js' %}"></script>
+</body>
+</html>

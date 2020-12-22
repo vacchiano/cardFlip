@@ -1,0 +1,60 @@
+{% extends 'core/base.html' %}
+
+{% block title %} Card Flip | Home{% endblock %}
+
+{% block content %}
+    <div class="columns is-centered mt-4">
+        <div class="column is-half has-text-centered">
+            <h1 class="title has-text-dark">Sports Card Price Checker</h1>
+            <hr/>
+        </div>
+    </div>
+<div class="columns">
+    <div class="column is-one-quarter"></div>
+    <div class="column is-half">
+
+        <form action={% url 'results' %} method="POST">
+        {% csrf_token %}
+            <div class="field">
+                <label class="label">Player Name</label>
+                <div class="control">
+                    <input class="input" name="player_name" type="text" placeholder="Alex Smith" required>
+                </div>
+            </div>
+          
+            <div class="field">
+                <label class="label">Card Brand</label>
+                <div class="control">
+                    <input class="input" name="card_brand" type="text" placeholder="Topps" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Card Year</label>
+                <div class="control">
+                    <input class="input" name="card_year" type="text" placeholder="2003-04" required>
+                </div>
+            </div>
+          
+            <div class="field">
+                <label class="label">Keyword</label>
+                <div class="control">
+                    <input class="input" name="card_keyword" type="text" placeholder="Rookie">
+                </div>
+            </div>
+          
+            <div class="field">
+                <label class="label">PSA</label>
+                <div class="control">
+                    <input class="input" name="card_psa" type="number" placeholder="Enter # if applicable">
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="control">
+                <button class="button is-primary is-fullwidth">Get Price</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
