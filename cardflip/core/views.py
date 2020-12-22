@@ -7,6 +7,10 @@ def index(request):
     context = {}
     return render(request, 'core/index.html', context)
 
+def about(request):
+    context = {}
+    return render(request, 'core/about.html', context)
+
 def results(request):
     if request.method == "POST":
         query = ""
