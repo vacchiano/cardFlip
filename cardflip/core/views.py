@@ -25,17 +25,30 @@ def results(request):
 
         query += " " + request.POST['card_year']
         request.session['year'] = request.POST['card_year']
+        
+        request.session['exclude'] = request.POST['exclude']
+        if request.POST['exclude']:
+            for term in request.POST['exclude'].split():
+                query += " -" + term
 
         request.session['card_psa'] = request.POST.get('card_psa', '')
         psa = request.POST.get('card_psa', '')
         if (psa != ''):
-            query += " PSA" + psa
+            query += " " + psa
         
         query = query.replace("  ", " ")
         query = query.replace(" ", "+")
         data = webScrape(query)
-        request.session['img_url'] = data[0]
-        request.session['avg_price'] = data[1]
+        #print(data)
+        if data:
+            request.session['img_url'] = data[0]
+            request.session['avg_price'] = data[1]
+            request.session['ebay_listings'] = data[2]
+        else:
+            request.session['img_url'] = ''
+            request.session['avg_price'] = ''
+            request.session['ebay_listings'] = ''
 
     context = {}
+    #print(query)
     return render(request, 'core/results.html', context)

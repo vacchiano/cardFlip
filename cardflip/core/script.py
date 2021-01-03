@@ -17,8 +17,13 @@ def webScrape(query):
 
     avg_price = 0.00
 
-    if len(listings)<5:
-        return ("not enough data")
+    listing_list = []
+
+    # count number of listings that are used in pricing
+    count = 0
+
+    if len(listings)<3:
+        print('not enough data')
 
     else:    
         for listing in listings[0:10]:
@@ -45,13 +50,14 @@ def webScrape(query):
                 img_url = img.replace("thumbs/", "")
                 img_url = img_url.replace("225", "500")
                 
+                count+=1
                 avg_price += price
                 avg_price += shipping
     
-                
+                listing_list.append([img_url, "{:.2f}".format(float(avg_price))])
+
             except:
-                print('error')
-                avg_price = "0"
+                print('error: problem parsing listing')
 
         avg_price = float(avg_price/10)
         avg_price = round(avg_price, 2)
@@ -59,4 +65,4 @@ def webScrape(query):
         avg_price = "{:,}".format(float(avg_price))
         #print(avg_price)
 
-        return [img_url, avg_price]
+        return [img_url, avg_price, listing_list]

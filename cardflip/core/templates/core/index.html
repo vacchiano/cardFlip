@@ -5,7 +5,7 @@
 {% block content %}
     <div class="columns is-centered mt-4">
         <div class="column is-half has-text-centered">
-            <h1 class="title has-text-dark">Sports Card Price Checker</h1>
+            <h1 class="title has-text-dark">Real-Time Price Checker</h1>
             <p>Fill out the form below and get real time pricing.</p>
             <hr/ class="mt-3 mb-0">
         </div>
@@ -17,43 +17,63 @@
         <form action={% url 'results' %} method="POST">
         {% csrf_token %}
             <div class="field">
-                <label class="label">Player Name</label>
+                <label class="label">Player name</label>
                 <div class="control">
-                    <input class="input" name="player_name" type="text" placeholder="Alex Smith" required>
+                    <input {% if request.session.player_name %} value="{{ request.session.player_name }}" {% endif %} required class="input" name="player_name" type="text" placeholder="Ja Morant" required>
                 </div>
             </div>
           
             <div class="field">
-                <label class="label">Card Brand</label>
+                <label class="label">Brand and set</label>
                 <div class="control">
-                    <input class="input" name="card_brand" type="text" placeholder="Topps" required>
+                    <input {% if request.session.brand %} value="{{ request.session.brand }}" {% endif %} required class="input" name="card_brand" type="text" placeholder="Panini Prizm" required>
                 </div>
             </div>
 
             <div class="field">
-                <label class="label">Card Year</label>
+                <label class="label">Card year</label>
                 <div class="control">
-                    <input class="input" name="card_year" type="text" placeholder="2003-04" required>
+                    <input {% if request.session.year %} value="{{ request.session.year }}" {% endif %} required class="input" name="card_year" type="text" placeholder="2019" required>
                 </div>
             </div>
           
             <div class="field">
                 <label class="label">Keyword</label>
                 <div class="control">
-                    <input class="input" name="card_keyword" type="text" placeholder="Rookie">
+                    <input {% if request.session.keyword %} value="{{ request.session.keyword }}" {% endif %} class="input" name="card_keyword" type="text" placeholder="Rookie">
                 </div>
             </div>
           
-            <div class="field">
-                <label class="label">PSA</label>
+            <!-- <div class="field">
+                <label class="label">Grade</label>
                 <div class="control">
-                    <input class="input" name="card_psa" type="number" placeholder="Enter # if applicable">
+                    <input class="input" name="card_psa" type="number" placeholder="Please select one">
+                </div>
+            </div> -->
+            
+            <div class="field">
+                <label class="label" for="card_psa">Select card grade</label>
+                <div class="select is-fullwidth">
+                    <select required name="card_psa" id="card_psa">
+                        <option value="raw">Raw</option>
+                        <option value="PSA 7">PSA 7</option>
+                        <option value="PSA 8">PSA 8</option>
+                        <option value="PSA 9">PSA 9</option>
+                        <option value="PSA 10">PSA 10</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Exlude text</label>
+                <div class="control">
+                    <input {% if request.session.exclude %} value="{{ request.session.exclude }}" {% endif %} class="input" id="exclude" name="exclude" type="text" placeholder="lot purple autograph">
                 </div>
             </div>
 
             <!-- Submit Button -->
-            <div class="control">
-                <button class="button is-primary is-fullwidth">Get Price</button>
+            <div class="control mt-5">
+                <button class="button has-text-weight-medium is-primary is-fullwidth">Get Price</button>
             </div>
         </form>
     </div>
