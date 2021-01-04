@@ -30,6 +30,15 @@ def webScrape(query):
             try:
                 #print(listing)
                 #title = soup.find(class_='s-item__title').get_text()
+                date = listing.find(class_='s-item__title--tagblock__COMPLETED').find(class_='POSITIVE').get_text()
+                #print(date)
+                
+                title = listing.find(class_='s-item__title--has-tags').get_text()
+                #print(title)
+                
+                link = listing.find(class_='s-item__link')['href']
+                #print(link)
+
                 price = listing.find(class_='s-item__price').get_text()
                 price = price.replace("$", "")
                 price = price.replace(",", "")
@@ -53,13 +62,14 @@ def webScrape(query):
                 count+=1
                 avg_price += price
                 avg_price += shipping
-    
-                listing_list.append([img_url, "{:.2f}".format(float(avg_price))])
+
+                list_price = price+shipping
+                listing_list.append([img_url, "{:.2f}".format(float(list_price)), date, title, link])
 
             except:
                 print('error: problem parsing listing')
 
-        avg_price = float(avg_price/10)
+        avg_price = float(avg_price/count)
         avg_price = round(avg_price, 2)
         avg_price = "{:.2f}".format(float(avg_price))
         avg_price = "{:,}".format(float(avg_price))

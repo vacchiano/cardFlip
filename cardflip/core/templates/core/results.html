@@ -31,7 +31,7 @@
     </div>
     <div class="column is-one-quarter">
         {% if request.session.player_name %}
-        <h4 class="has-text-centered-mobile is-size-3">✔ {{ request.session.player_name }}</h4>
+        <h4 class="has-text-centered-mobile is-size-3">{{ request.session.player_name }}</h4>
         {% else %}
         <h4 class="has-text-centered-mobile is-size-3">Player</h4>
         {% endif %}
@@ -39,7 +39,7 @@
         <h4 class="has-text-centered-mobile is-size-4"><b>Brand:</b> {{ request.session.brand }}</h4>
         <h4 class="has-text-centered-mobile is-size-4"><b>Rating:</b> {{ request.session.card_psa }}</h4>
         <hr>
-        <h4 class="has-text-centered-mobile is-size-4"><b>Avg. Price + S&H:</b><br><span class="mt-3 tag is-size-3 is-large is-primary has-text-weight-bold">${{ request.session.avg_price }}</span></h4>
+        <h4 class="has-text-centered-mobile is-size-4"><b>Avg. Price + S&H:</b><br><span class="mt-3 tag is-size-3 is-large is-primary has-text-dark has-text-weight-bold">${{ request.session.avg_price }}</span></h4>
     </div>
 </div>
 <div class="columns">
@@ -47,12 +47,17 @@
     <div class="column is-one-quarter">
     </div>
     <div class="column is-half">
-        <h1 class="title has-text-dark">eBay Listings</h1>
+        <div class="column">
+            <h1 class="has-text-centered-mobile title has-text-dark">Sold Listings</h1>
+        </div>
+        <div class="column">
+            <h4 class="is-size-4">count: {{request.session.ebay_listings|length}}</h4>
+        </div>
         <table class="table is-fullwidth">
             <thead>
                 <tr>
-                    <th>Card</th>
-                    <th>Price</th>
+                    <th>Card Image</th>
+                    <th>Sale Details</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,7 +67,10 @@
                         <img src="{{ ebay_listing.0 }}" alt="" style="max-height: 200px;">
                     </td>
                     <td>
-                        <h4 class="has-text-centered-mobile is-size-4"><b>Price + S&H:</b><br><span class="mt-3 tag is-size-3 is-large is-primary has-text-weight-bold">${{ ebay_listing.1 }}</span></h4>
+                        <p>{{ ebay_listing.2 }}</p>
+                        <p><a href="{{ ebay_listing.4 }}" target="_blank">{{ ebay_listing.3 }}</a></p>
+                        <h4 class="has-text-centered-mobile is-size-5"><b>Price + S&H:</b><br><span class="mt-3 tag is-size-3 is-large is-primary has-text-dark has-text-weight-bold">${{ ebay_listing.1 }}</span></h4>
+                    
                     </td>
                 </tr>
                 {% endfor %}
