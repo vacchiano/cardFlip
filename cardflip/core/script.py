@@ -13,6 +13,9 @@ def webScrape(query):
     r = requests.get(url)
     soup = BeautifulSoup(r.text, 'html.parser')
 
+    # prints the html page
+    # print(soup.prettify())
+
     listings = soup.find_all(class_='s-item__wrapper')
 
     avg_price = 0.00
